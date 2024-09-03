@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-gem 'jekyll-feed'
-gem 'cvless', '~> 2.2'
+source "https://rubygems.org"
+gemspec
