@@ -7,5 +7,7 @@ main:
     url: /categories/
   - title: "Tags"
     url: /tags/
+  - title: "Notes"
+    url: https://harutomo-jp.gitbook.io/notes
   - title: "About"
     url: /about/

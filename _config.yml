@@ -132,11 +132,11 @@ analytics:
 
 # Site Settings
 locale                   : "en-US"
-title                    : "harutomo-jp.io"
+title                    : "harutomo-jp.github.io"
 title_separator          : "-"
 name                     : "Harutomo"
 description              : "Hacking information and learning"
-url                      : "https://harutomo-jp.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : "https://harutomo-jp.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "harutomo-jp/harutomo-jp.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 logo                     : "/assets/images/masthead.png"
