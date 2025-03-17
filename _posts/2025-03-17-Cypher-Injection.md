@@ -6,7 +6,7 @@ date: 2025-03-17
 classes: wide
 header:
   teaser: /assets/images/HTB-Cypher/cypher-logo.png
-  teaser_home_page: true
+  teaser_home_page: false
   icon: /assets/images/hackthebox.webp
 categories:
   - hackthebox
