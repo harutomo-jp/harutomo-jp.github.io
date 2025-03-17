@@ -1,7 +1,9 @@
 ---
+layout: single
 title: "About"
 permalink: /about/
 date: 2025-02-24
+classes: wide
 ---
 
 # Thank you for visiting my site!
