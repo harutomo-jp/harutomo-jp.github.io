@@ -9,7 +9,7 @@ header:
   teaser_home_page: false
   icon: /assets/images/code.png
 categories:
-  - information
+  - code
 tags:
   - reverse-shells
 ---
