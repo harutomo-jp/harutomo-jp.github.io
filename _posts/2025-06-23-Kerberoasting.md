@@ -49,3 +49,4 @@ https://iam.uconn.edu/the-kerberos-protocol-explained/
 https://redsiege.com/tools-techniques/2020/10/detecting-kerberoasting/
 https://www.hackthebox.com/blog/what-is-kerberos-authentication
 https://iam.uconn.edu/the-kerberos-protocol-explained/
+https://web.mit.edu/kerberos/krb5-1.12/doc/admin/database.html 
