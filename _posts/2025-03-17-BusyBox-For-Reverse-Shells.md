@@ -9,9 +9,7 @@ header:
   teaser_home_page: false
   icon: /assets/images/code.png
 categories:
-  - code
 tags:
-  - reverse-shells
 ---
 
 # Reviving the NetCat Reverse Shell
