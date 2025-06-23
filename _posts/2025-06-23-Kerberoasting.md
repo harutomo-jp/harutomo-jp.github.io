@@ -40,11 +40,11 @@ A Kerberos database contains all of a domain's principals, their passwords, and 
 
 As mentioned before, tickets are central to how Kerberos handles authentication across the domain and keeps passwords from being directly communicated across the network and allows for SSO access to multiple services and hosts.
 
-
-
 These tickets contain two encryption keys:
 * **The ticket key** - Shared between the Kerberos infrastructure and the service requested by the client.
 * **The session key** - Shared between the Client and the service requested.  This key is used to encrypte and decrypt communication with the service.
+
+## Communicating with the KDC - Initial Authentication
 
 
 
