@@ -32,6 +32,10 @@ The KDC is comprised of additional components:
 * **Kerberos Authentication Server (AS)** - Clients use this service to authenticate themselves to get a ticket-granting ticket (TGT).
 * **Kerberos Ticket Granting Service (TGS)** - This service accepts Client TGTs for authentication to resources on application servers.
 
+## The Kerberos Database
+
+A Kerberos database contains all of a domain's principals, their passwords, and other administrative information about each principal.
+
 ## Kerberos Tickets
 
 As mentioned before, tickets are central to how Kerberos handles authentication across the domain and keeps passwords from being directly communicated across the network and allows for SSO access to multiple services and hosts.
@@ -49,4 +53,4 @@ https://iam.uconn.edu/the-kerberos-protocol-explained/
 https://redsiege.com/tools-techniques/2020/10/detecting-kerberoasting/
 https://www.hackthebox.com/blog/what-is-kerberos-authentication
 https://iam.uconn.edu/the-kerberos-protocol-explained/
-https://web.mit.edu/kerberos/krb5-1.12/doc/admin/database.html 
+https://web.mit.edu/kerberos/krb5-1.12/doc/admin/database.html
