@@ -1,8 +1,8 @@
 ---
 layout: single
-title: Kerberoasting - Dissecting the Persistent Attack
+title: Understanding Kerberoasting from Start to Finish
 excerpt: Kerberoasting - an attack technique first discovered almost a decade ago and yet still remains prevalent as a valid technique for password cracking and pass the hash attacks, enabling privilege escalation and lateral movement within an Active Directory environment.  Due to the popularity of the attack, there have been countless tools already created to scan for and abuse Kerberoasting easily.  Having used this attack before many times in CTFs and while studying for my OSCP I believed that I understood how it worked, but recently I was asked to explain it fully and I found myself grasping at terms making me realize I didn't quite know this technique as well as I thought!"
-date: 2025-06-2025
+date: 25-06-2025
 classes: wide
 header:
   teaser: /assets/images/kali-logo.png
@@ -12,45 +12,42 @@ categories:
 tags:
 ---
 
-# Background
+## Background
 
-Kerberoasting - an attack technique first discovered almost a decade ago and yet still remains prevalent as a valid technique for password cracking and pass the hash attacks, enabling privilege escalation and lateral movement within an Active Directory environment.  Due to the popularity of the attack, there have been countless tools already created to scan for and abuse Kerberoasting easily.  Having used this attack before many times in CTFs and while studying for my OSCP I believed that I understood how it worked, but recently I was asked to explain it fully and I found myself grasping at terms making me realize I didn't quite know this technique as well as I thought!
+Kerberoasting - an attack technique first discovered almost a decade ago and yet still remains prevalent as a valid technique for password cracking and pass the hash attacks, enabling privilege escalation and lateral movement within an Active Directory environment.  Due to the popularity of the attack, there have been countless tools already created to scan for and abuse Kerberoasting easily.  Having seen and used this attack before many times, I wanted to take the time to go in-depth and explain how it works!
 
-Seeing as kerberoasting is an attack on Microsoft Active Directory's 'Kerberos' authentication protocol, and to understand how the attack works we first must understand how Kerberos authnetication works.
+Seeing as kerberoasting is an attack on Microsoft Active Directory's 'Kerberos' authentication protocol, we first must understand how Kerberos authnetication works.
 
-# The Kerberos Authentication Process
+## Kerberos - The Three-Headed Guardian
 
-Fundamentally, Kerberos is a stateless authentication service used by Windows Active Directory (AD) environments that uses "tickets" for identity management rather than transmitting user passwords over the network.
+Kerberos is a ticket-based authentiction protocol designed by MIT.  Fundamentally, Kerberos was designed to provide a secure authentication between clients and services across an insecure network based on the [Needham-Schroeder protocol](https://en.wikipedia.org/wiki/Needham%E2%80%93Schroeder_protocol) and has been adopted by Microsoft as the default authentication method for their Active Directory service.  Kerberos allows for trust to be established between a client and a service based on a trusted third-party entity and the name "Kerberos", the three-headed dog of Greek mythology, references those three components.  In Microsoft Active Directory, these three components are the following:  
 
-Here are the primary three components in our authentication process:
-* **Client** - The client is the user or computer that is attempting to access a service in the domain.
-* **Member Server** - The asset or service that the 'Client' is attempting to access.
-* **Domain Controller (DC)** - The logical powerhouse of the domain, and serves as the domain's Key Distribution Server (KDC).  The KDC is responsible for managing authentication and distributing session keys across the domain.
+1. **Client:**  The client is the user/device/identity that is trying to authenticate.  MIT describes it as "the identity you use to log on to Kerberos".  For example, this could be a User Principal (user@domain.com) or a Service Principal (HTTP/hostname.domain.com@domain.com).
 
-The KDC is comprised of additional components:
-* **Kerberos database** - this is the database that stores the necessary authentication information regarding the client and the services that they authenticate to
-* **Kerberos Authentication Server (AS)** - Clients use this service to authenticate themselves to get a ticket-granting ticket (TGT).
-* **Kerberos Ticket Granting Service (TGS)** - This service accepts Client TGTs for authentication to resources on application servers.
+2. **Member Server:** This is the server on the domain with the asset/service that the client is attempting to access.  For example, the resource could be a SMB share (\\wk01.domain.com\SharedFolder).  In essense, clients initiate actions, servers respond.
 
-## The Kerberos Database
+3. **Key Distribution Center:** The Key Distribution Center (KDC) is the trusted third-party in the domain.  The KDC is always a Domain Controller in Active Directory and is the ultimate authority of managing authentication, distributing tickets, and determining the identity of clients and resources.
 
-A Kerberos database contains all of a domain's principals, their passwords, and other administrative information about each principal.
+### KDC -The Ultimate Authority
 
-## Kerberos Tickets
+To perform its role as the trusted third-party, the KDC has the following components:
 
-As mentioned before, tickets are central to how Kerberos handles authentication across the domain and keeps passwords from being directly communicated across the network and allows for SSO access to multiple services and hosts.
+1. **Kerberos database:** This is the database that contains all of a domain's user/service administrative information, including password hashes.  This database will be used as a reference point for the KDC to validate the identity of whatever principal it is communicating with.
 
-These tickets contain two encryption keys:
-* **The ticket key** - Shared between the Kerberos infrastructure and the service requested by the client.
-* **The session key** - Shared between the Client and the service requested.  This key is used to encrypte and decrypt communication with the service.
+2. **Kerberos Authentication Service (AS):** This service is used by principals communicating with the KDC to authenticate themselves and receive a Ticket Granting Ticket (TGT).
 
-## Communicating with the KDC - Initial Authentication
+2. **Ticket Granting Service (TGS):**  This service is used by principals to use their TGT to request a Service Ticket (ST) for accessing a specific resource.
+
+### Tickets - A Ticket to Ride
 
 
+### The Initial Authentication
+
+Every client/server connection begins with authentication to verify to the party on each end of the connection that the identity of both ends is genuine.
 
 Sources:
-https://iam.uconn.edu/the-kerberos-protocol-explained/
 https://redsiege.com/tools-techniques/2020/10/detecting-kerberoasting/
 https://www.hackthebox.com/blog/what-is-kerberos-authentication
 https://iam.uconn.edu/the-kerberos-protocol-explained/
 https://web.mit.edu/kerberos/krb5-1.12/doc/admin/database.html
+https://syfuhs.net/a-bit-about-kerberos
