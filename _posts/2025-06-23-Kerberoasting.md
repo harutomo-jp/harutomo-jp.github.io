@@ -44,13 +44,11 @@ To perform its role as the trusted third-party, the KDC has the following compon
 
 ### The Initial Authentication (AS-REQ & AS-REP)
 
-Every client/server connection begins with authentication to verify to the party on each end of the connection that the identity of both ends is genuine.  The client and the KDC do not implicitly trust each others' identities.  So to prove to one another that they are who they say they are, the client initiates an authentication server request (AS-REQ).  The AS-REQ is a message that is sent to the AS. The AS-REQ typically includes the following:
+Every client/server connection begins with authentication to verify to the party on each end of the connection that the identity of both ends is genuine.  The client and the KDC do not implicitly trust each others' identities.  So to prove to one another that they are who they say they are, the client initiates an authentication server request (AS-REQ).  The AS-REQ message contains information about the client such as it's principal name, requested service (TGS), and a timestamp encrypted with a key derived from the client's NTLM password hash.
 
-**Client Principal Name (CName):** Identity of the client who is requesting authentication
-**Domain Name:** Name of the domain that the client belongs to
-**Requested Ticket Lifetime:** The lifetime the client wants to TGT to have
-**Nonce:** Random number used to match the AS-REQ to the response (AS-REP)
-**Pre
+<p align="center">
+  <img src="/assets/images/Kerberoasting/ASREQandASREP.png">
+</p>
 
 
 Sources:
