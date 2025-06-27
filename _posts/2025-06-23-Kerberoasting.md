@@ -44,6 +44,7 @@ To perform its role as the trusted third-party, the KDC has the following compon
 
 ### Tickets - A Ticket to Ride
 
+"Ticket granting ticket??  What is a ticket?"  Well, a ticket is a block of information which is encrypted using
 
 ### The Initial Authentication
 
