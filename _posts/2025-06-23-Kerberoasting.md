@@ -52,6 +52,10 @@ If the decryption is successful and the timestamp is acceptable, the AS detemine
   <img src="/assets/images/Kerberoasting/ASREQandASREP.png">
 </p>
 
+### Established Trust - What's Next?
+
+
+
 
 Sources:
 https://redsiege.com/tools-techniques/2020/10/detecting-kerberoasting/
