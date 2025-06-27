@@ -42,13 +42,16 @@ To perform its role as the trusted third-party, the KDC has the following compon
   <img src="/assets/images/Kerberoasting/Kerberos-Setup.png">
 </p>
 
-### Tickets - A Ticket to Ride
+### The Initial Authentication (AS-REQ & AS-REP)
 
-"Ticket granting ticket??  What is a ticket?"  Well, a ticket is a block of information which is encrypted using
+Every client/server connection begins with authentication to verify to the party on each end of the connection that the identity of both ends is genuine.  The client and the KDC do not implicitly trust each others' identities.  So to prove to one another that they are who they say they are, the client initiates an authentication server request (AS-REQ).  The AS-REQ is a message that is sent to the AS. The AS-REQ typically includes the following:
 
-### The Initial Authentication
+**Client Principal Name (CName):** Identity of the client who is requesting authentication
+**Domain Name:** Name of the domain that the client belongs to
+**Requested Ticket Lifetime:** The lifetime the client wants to TGT to have
+**Nonce:** Random number used to match the AS-REQ to the response (AS-REP)
+**Pre
 
-Every client/server connection begins with authentication to verify to the party on each end of the connection that the identity of both ends is genuine.
 
 Sources:
 https://redsiege.com/tools-techniques/2020/10/detecting-kerberoasting/
@@ -56,3 +59,5 @@ https://www.hackthebox.com/blog/what-is-kerberos-authentication
 https://iam.uconn.edu/the-kerberos-protocol-explained/
 https://web.mit.edu/kerberos/krb5-1.12/doc/admin/database.html
 https://syfuhs.net/a-bit-about-kerberos
+https://app.diagrams.net/
+
