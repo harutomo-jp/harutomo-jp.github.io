@@ -38,7 +38,7 @@ To perform its role as the trusted third-party, the KDC has the following compon
 
 2. **Ticket Granting Service (TGS):**  This service is used by principals to use their TGT to request a Service Ticket (ST) for accessing a specific resource.
 
-
+<img src="assets/images/Kerberoasting/Kerberos-Setup.png" alt="Kerberos Setup" align="center"/>
 
 ### Tickets - A Ticket to Ride
 
