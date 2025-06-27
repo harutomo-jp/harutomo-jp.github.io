@@ -54,7 +54,7 @@ If the decryption is successful and the timestamp is acceptable, the AS detemine
 
 ### Established Trust - What's Next?
 
-The client receives the AS-REP and trust between the client and the KDC has been established.  The client trusts the KDC because only the KDC would know the client's password to be able to decrypt and encrypt the session key, and the KDC trusts the client because the client proved it knew its password that was stored in the KDC's Kerberos database.
+The client receives the AS-REP and trust between the client and the KDC has been established.  The client trusts the KDC because only the KDC would know the client's password to be able to decrypt and encrypt the session key, and the KDC trusts the client because the client proved it knew its password that was stored in the KDC's Kerberos database.  With this trust now established, the client has everything it needs to set up a session with an application on the member server.
 
 
 
