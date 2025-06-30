@@ -44,9 +44,13 @@ To perform its role as the trusted third-party, the KDC has the following compon
 
 ### The Initial Authentication (AS-REQ & AS-REP)
 
-Every client/server connection begins with authentication to verify to the party on each end of the connection that the identity of both ends is genuine.  The client and the KDC do not implicitly trust each others' identities.  So to prove to one another that they are who they say they are, the client initiates an authentication server request (AS-REQ).  The AS-REQ message contains information about the client such as it's principal name, requested service (in this case, the TGS), and a timestamp encrypted with a key derived from the client's password.  When the AS receives the AS-REQ, it searches the Kerberos database for the Client's Principal Name and tries to decrypt the timestamp using the associated password hash in the database.
+Every client/server connection begins with authentication to verify to the party on each end of the connection that the identity of both ends is genuine.  The client and the KDC do not implicitly trust each others' identities.  So to prove to one another that they are who they say they are, the client initiates an authentication server request (AS-REQ).  The AS-REQ message contains information about the client such as it's principal name, requested service, and a timestamp encrypted with a key derived from the client's password.  When the AS receives the AS-REQ, it searches the Kerberos database for the Client's Principal Name and tries to decrypt the timestamp using the associated password hash in the database.
+
+(in this case, the TGS)
 
 If the decryption is successful and the timestamp is acceptable, the AS detemines that the request is legitimate and the client can be trusted and responds to the client with an authentication server response (AS-REP) message.  This message contains a session key for the client that is encrypted using a key derived from the client's password hash, and an encrypted burb of data called the Ticket Granting Ticket (TGT).  The session key will be used when the client communicates with the TGS and will prove that the client is the owner of the TGT.  The TGT is encrypted using a key derived from the TGS's password (the krbtgt account), and contains the client's identity, the client's sessions key, a timestamp, and the ticket's lifetime.
+
+Note: 
 
 <p align="center">
   <img src="/assets/images/Kerberoasting/ASREQandASREP.png">
