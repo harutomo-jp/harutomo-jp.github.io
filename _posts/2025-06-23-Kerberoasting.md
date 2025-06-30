@@ -42,6 +42,8 @@ To perform its role as the trusted third-party, the KDC has the following compon
   <img src="/assets/images/Kerberoasting/Kerberos-Setup.png">
 </p>
 
+
+
 ### The Initial Authentication (AS-REQ & AS-REP)
 
 Every client/server connection begins with authentication to verify to the party on each end of the connection that the identity of both ends is genuine.  The client and the KDC do not implicitly trust each others' identities.  So to prove to one another that they are who they say they are, the client initiates an authentication server request (AS-REQ).  The AS-REQ message contains information about the client such as it's principal name, requested service, and a timestamp encrypted with a key derived from the client's password.  When the AS receives the AS-REQ, it searches the Kerberos database for the Client's Principal Name and tries to decrypt the timestamp using the associated password hash in the database.
