@@ -62,7 +62,7 @@ The session key is now a shared secret that establishes trust between the client
 
 ### RED ALERT! - AS-REP Roasting
 
-In its most basic form, the client now has the ability to request
+In its most basic form, the client has the ability to request the KDC to issue keys for any member server on the domain
 
 
 
