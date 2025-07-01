@@ -60,7 +60,7 @@ The session key is now a shared secret that establishes trust between the client
   <img src="/assets/images/Kerberoasting/ASREQandASREPfinal.png">
 </p>
 
-### RED ALERT! - AS-REP Roasting
+### RED ALERT! - Something's roasting.. AS-REP Roasting!
 
 In its most basic form, the client has the ability to request the KDC to issue keys for any member server on the domain
 
