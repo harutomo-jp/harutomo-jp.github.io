@@ -62,7 +62,7 @@ The session key is now a shared secret that establishes trust between the client
 
 ### RED ALERT! - Something's roasting.. AS-REP Roasting!
 
-In its most basic form, the client has the ability to request the KDC to issue keys for any member server on the domain
+In this form, the client has the ability to ask the KDC to return an AS-REP message for domain objects that has a blob of data encrypted with a key derived from the object's password.  This screams DANGER!  If
 
 
 
