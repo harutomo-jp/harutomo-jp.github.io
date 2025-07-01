@@ -48,23 +48,21 @@ Every client/server connection begins with authentication to verify to the party
 
 When the AS receives the AS-REQ message, it searches the Kerberos database for the client's principal name and attempts to decrypt the timestamp using the client's associated password hash in the database.  If the decryption is successful and the timestamp is within an acceptable timeframe, the AS determines that the request is legitimate and that the client knows their password and can be trusted.
 
-Now that the AS trusts the client, it responds back with an authentication server response (AS-REP) message.  This message contains a session key
-
-### The Initial Authentication (AS-REQ & AS-REP)
-
-Every client/server connection begins with authentication to verify to the party on each end of the connection that the identity of both ends is genuine.  The client and the KDC do not implicitly trust each others' identities.  So to prove to one another that they are who they say they are, the client initiates an authentication server request (AS-REQ).  The AS-REQ message contains information about the client such as it's principal name, requested service, and a timestamp encrypted with a key derived from the client's password.  When the AS receives the AS-REQ, it searches the Kerberos database for the Client's Principal Name and tries to decrypt the timestamp using the associated password hash in the database.
-
-If the decryption is successful and the timestamp is acceptable, the AS detemines that the request is legitimate and the client can be trusted and responds to the client with an authentication server response (AS-REP) message.  This message contains a session key for the client that is encrypted using a key derived from the client's password hash, and an encrypted burb of data.  The session key will be used when the client communicates with the TGS and will prove that the client is the owner of the TGT.  The TGT is encrypted using a key derived from the TGS's password (the krbtgt account), and contains the client's identity, the client's sessions key, a timestamp, and the ticket's lifetime.
-
-Note:
+Now that the AS trusts the client, it responds back with an authentication server response (AS-REP) message.  The main part of the AS-REP message is a blob of data, including a string known as a session key, that the KDC encrypts using the target member server's password that is referred to as the "ticket".  The other part of the AS-REP message is metadata encrypted using the client's key that contains useful information about the contents of the ticket and includes the same session key that is in the ticket's data.
 
 <p align="center">
   <img src="/assets/images/Kerberoasting/ASREQandASREP.png">
 </p>
 
-### Established Trust - What's Next?
+The session key is now a shared secret that establishes trust between the client, the KDC, and the member server.  The KDC can trust the client because the client provided their password that matched the kerberos database, the client can trust the KDC because the KDC was able to encrypt data using the client's password as the KDC is the only entity that should have the key.  The member server trusts the KDC because the ticket was encrypted using the member server's password, which only the KDC could issue.  Lastly, the member server can trust the client because the client is using the same secret key issued by the KDC.
 
-The client receives the AS-REP and trust between the client and the KDC has been established.  The client trusts the KDC because only the KDC would know the client's password to be able to decrypt and encrypt the session key, and the KDC trusts the client because the client proved it knew its password that was stored in the KDC's Kerberos database.  With this trust now established, the client has everything it needs to set up a session with an application on the member server.
+<p align="center">
+  <img src="/assets/images/Kerberoasting/ASREQandASREPfinal.png">
+</p>
+
+### RED ALERT! - AS-REP Roasting
+
+In its most basic form, the client now has the ability to request
 
 
 
