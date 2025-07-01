@@ -64,6 +64,9 @@ The session key is now a shared secret that establishes trust between the client
 
 In this form, the client has the ability to ask the KDC to return an AS-REP message for domain objects, each AS-REP contains a blob of data encrypted with a key derived from the object's password.  This screams DANGER!  A malicious actor could weaponize theses requests to gather hash-like encrypted blobs that could be bruteforced offline to attempt to reverse the target domain object's password.  This attack is known as AS-REP roasting.
 
+<p align="center">
+  <img src="/assets/images/Kerberoasting/asreproasting.png">
+</p>
 
 
 
