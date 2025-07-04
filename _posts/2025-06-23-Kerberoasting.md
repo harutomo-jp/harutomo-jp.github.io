@@ -44,7 +44,11 @@ To perform its role as the trusted third-party, the KDC has the following compon
 
 ### The Initial Authentication (AS-REQ & AS-REP)
 
-Every client/server connection begins with authentication to verify to the party on each end of the connection that the identity of both ends is genuine.  The client and the KDC do not implicitly trust each others' identities.  So, to eastablish trust between client and KDC, the client initiates an authentication server request (AS-REQ).  The AS-REQ message contains information about the client such as the client's principal name, the service being requested, and a timestamp encrypted with a key that is derived from the client's password.
+In the beginning, the client needs to confirm that the KDC is actually the KDC.  Conversely, the KDC also needs the client to prove that it is who they claim to be. So, to eastablish this initial trust between client and KDC, the client initiates an authentication server request (AS-REQ).  In the AS-REQ message, the client includes information about itself such as the Principal Name (unique identifier of an Active Directory object) and a request for a ticket to communicate with the Ticket Granting Service (TGS).
+
+When the AS receives the AS-REQ message, it searches the Kerberos database for the client's principal name.  If the client is in the database, the AS determines the request is legitimate and sends an authentication server response (AS-REP) message.  The AS-REP message contains two very important pieces of information: an encrypted string of data which is the **Ticket Granting Ticket (TGT)**.  When send to the TGS, the TGT contains information that the ticket is owned by the client, how long the ticket is valid for, and a session key that is used to encrypt communication back and forth between the client and the TGS.  The TGT is encrypted using a key derived from the TGS's password (often the krbtgt account).
+
+The second part of the AS-REP message is another string of encrypted data called the **session key**.  This is the same session key enclosed in the TGT, but this session key was encrypted using a key derived from the *client's* password.  The client can decrypt the secret key and use the key to encrypt communication between itself and the TGS.  
 
 When the AS receives the AS-REQ message, it searches the Kerberos database for the client's principal name and attempts to decrypt the timestamp using the client's associated password hash in the database.  If the decryption is successful and the timestamp is within an acceptable timeframe, the AS determines that the request is legitimate and that the client knows their password and can be trusted.
 
@@ -62,11 +66,13 @@ The session key is now a shared secret that establishes trust between the client
 
 ### RED ALERT! - Something's roasting.. AS-REP Roasting!
 
-In this form, the client has the ability to ask the KDC to return an AS-REP message for domain objects, each AS-REP contains a blob of data encrypted with a key derived from the object's password.  This screams DANGER!  A malicious actor could weaponize theses requests to gather hash-like encrypted blobs that could be bruteforced offline to attempt to reverse the target domain object's password.  This attack is known as AS-REP roasting.
+In this form, the client has the ability to ask the KDC to return an AS-REP message for domain objects, each AS-REP message contains a blob of data encrypted with a key derived from the object's password.  This screams DANGER!  A malicious actor could weaponize theses requests to gather hash-like encrypted blobs that could be bruteforced offline to attempt to reverse the target domain object's password.  This attack is known as AS-REP roasting.
 
 <p align="center">
   <img src="/assets/images/Kerberoasting/asreproasting.png">
 </p>
+
+### The Solution: Pre-Authentication and the Ticket Granting Ticket
 
 
 
