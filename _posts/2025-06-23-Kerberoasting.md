@@ -12,6 +12,10 @@ categories:
 tags:
 ---
 
+<p align="center">
+  <img src="/assets/images/Kerberoasting/Kerberos_protocol_logo.png">
+</p>
+
 ## Background
 
 Kerberoasting - an attack technique first discovered almost a decade ago and yet still remains prevalent as a valid technique for password cracking and pass the hash attacks, enabling privilege escalation and lateral movement within an Active Directory environment.  Due to the popularity of the attack, there have been countless tools already created to scan for and abuse Kerberoasting easily.  Having seen and used this attack before many times, I wanted to take the time to go in-depth and explain how it works!
@@ -90,19 +94,27 @@ The service will receive the AP-REQ and decrypt the Service Ticket using its own
   <img src="/assets/images/Kerberoasting/APREQandAPREP.png">
 </p>
 
+## So How Can This Be Abused? - Kerberoasting
+
+The integral part of Kerberoasting is how the TGS creates the Service Ticket, specifically because the Service Ticket is created using he password hash of the targeted service.  The KDC has no ability to determine whether or not that client *should* have the ticket as it lets the service determine whether or not to permit the client access.  This means that the client can technically request a service ticket for **any** SPN on the domain.
+
+Because the ticket is encrypted using a key that is derived from the service's password, the attacker can request a Service Ticket, extract the password hash, and attempt offline brute forcing to guess the password.
+
+SPNs on a domain are most commonly tied to machine accounts, whose passwords are randomly generated and are generally considered uncrackable.  However, if a user account is tied to an SPN, there is a likelihood that their password is feasably vulnerable to brute-forcing.
+
+<p align="center">
+  <img src="/assets/images/Kerberoasting/APREQandAPREP.png">
+</p>
 
 
 
 
 
-
-
-
-Sources:
-https://redsiege.com/tools-techniques/2020/10/detecting-kerberoasting/
-https://www.hackthebox.com/blog/what-is-kerberos-authentication
-https://iam.uconn.edu/the-kerberos-protocol-explained/
-https://web.mit.edu/kerberos/krb5-1.12/doc/admin/database.html
-https://syfuhs.net/a-bit-about-kerberos
-https://app.diagrams.net/
+## Sources
+- [Detecting Kerberoasting (Red Siege)](https://redsiege.com/tools-techniques/2020/10/detecting-kerberoasting/)
+- [What is Kerberos Authentication (Hack The Box)](https://www.hackthebox.com/blog/what-is-kerberos-authentication)
+- [The Kerberos Protocol Explained (UConn)](https://iam.uconn.edu/the-kerberos-protocol-explained/)
+- [Kerberos Admin Database Documentation (MIT)](https://web.mit.edu/kerberos/krb5-1.12/doc/admin/database.html)
+- [A Bit About Kerberos (Steve Syfuhs)](https://syfuhs.net/a-bit-about-kerberos)
+- [Diagrams.net - Diagram Tool](https://app.diagrams.net/)
 
