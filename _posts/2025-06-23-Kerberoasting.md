@@ -2,7 +2,7 @@
 layout: single
 title: Understanding Kerberoasting from Start to Finish
 excerpt: Kerberoasting - an attack technique first discovered almost a decade ago and yet still remains prevalent as a valid technique for password cracking and pass the hash attacks, enabling privilege escalation and lateral movement within an Active Directory environment.  Due to the popularity of the attack, there have been countless tools already created to scan for and abuse Kerberoasting easily.  Having seen and used this attack before many times, I wanted to take the time to go in-depth and explain how it works!
-date: 25-06-2025
+date: 07-07-2025
 classes: wide
 header:
   teaser: /assets/images/kali-logo.png
@@ -103,7 +103,7 @@ Because the ticket is encrypted using a key that is derived from the service's p
 SPNs on a domain are most commonly tied to machine accounts, whose passwords are randomly generated and are generally considered uncrackable.  However, if a user account is tied to an SPN, there is a likelihood that their password is feasably vulnerable to brute-forcing.
 
 <p align="center">
-  <img src="/assets/images/Kerberoasting/APREQandAPREP.png">
+  <img src="/assets/images/Kerberoasting/KerberoastingProcess.png">
 </p>
 
 
