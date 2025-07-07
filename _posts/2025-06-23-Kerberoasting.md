@@ -44,21 +44,17 @@ To perform its role as the trusted third-party, the KDC has the following compon
 
 ### The Initial Authentication (AS-REQ & AS-REP)
 
-Every client/server connection begins with authentication to the KDC to verify to the party on each end of the connection that the identity of both ends is genuine.  To eastablish trust between client and KDC, the client initiates an authentication server request (AS-REQ).  The AS-REQ message contains information about the client such as the client's principal name, the service being requested (TGS), and a timestamp encrypted with a key that is derived from the client's password.
+The authentication process beings with the client authenticating itself to the KDC by initiating what's called an **Authentication Server Request (AS-REQ)**.  The AS-REQ message contains information about the client such as the client's principal name, the service being requested (TGS), and a timestamp encrypted with a key that is derived from the client's password.
 
-When the AS receives the AS-REQ message, it searches the Kerberos database for the client's principal name and attempts to decrypt the timestamp using the client's associated password hash in the database.  If the decryption is successful and the timestamp is within an acceptable timeframe, the AS determines that the request is legitimate and that the client knows their password and can be trusted.
+When the Authentication Service receives the AS-REQ message, it searches the Kerberos database for the client's principal name and attempts to decrypt the timestamp using the client's associated password hash in the database.  If the decryption is successful and the timestamp is within an acceptable timeframe, the Authentication Service determines that the request is legitimate and that the client knows their password and can be trusted.
 
-Now that the AS trusts the client, it responds back with an authentication server response (AS-REP) message.  The main part of the AS-REP message is a blob of data, including a string known as a session key, that the KDC encrypts using the special **krbtgt** account's password that is referred to as the "Ticket Granting Ticket".  The other part of the AS-REP message is metadata encrypted using the client's key that contains useful information about the contents of the ticket and includes the same session key that is in the ticket's data.
+Now that the Authentication Service trusts the client, it responds back with an **Authentication Server Response (AS-REP)** message.  The main part of the AS-REP message is a blob of data, including a string known as a session key, that the KDC encrypts using the special **krbtgt** account's password that is referred to as the "Ticket Granting Ticket".  The other part of the AS-REP message is metadata encrypted using the client's key that contains useful information about the contents of the ticket and includes the same session key that is in the ticket's data.
 
 <p align="center">
   <img src="/assets/images/Kerberoasting/ASREQandASREP.png">
 </p>
 
-The session key is now a shared secret that establishes trust between the client, the KDC, and the member server.  The KDC can trust the client because the client provided their password that matched the kerberos database, the client can trust the KDC because the KDC was able to encrypt data using the client's password as the KDC is the only entity that should have the key.  The member server trusts the KDC because the ticket was encrypted using the member server's password, which only the KDC could issue.  Lastly, the member server can trust the client because the client is using the same secret key issued by the KDC.
-
-<p align="center">
-  <img src="/assets/images/Kerberoasting/ASREQandASREPfinal.png">
-</p>
+The session key is now a shared secret that the client and the KDC can use to encrypt communication between each other without using passwords.  The KDC can trust the client because the client provided their password that matched the kerberos database, the client can trust the KDC because the KDC was able to encrypt data using the client's password as the KDC is the only entity that should have the key.
 
 ### RED ALERT! - Something's roasting.. AS-REP Roasting!
 
